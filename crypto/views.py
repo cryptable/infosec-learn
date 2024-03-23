@@ -2,7 +2,7 @@ import binascii
 import secrets
 
 from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad
+from Crypto.Util.Padding import pad, unpad
 from django.shortcuts import render, redirect
 from hashlib import sha256
 
@@ -68,10 +68,13 @@ def decrypt_symmetric_cipher(request):
     cipher = AES.new(binascii.unhexlify(request.POST["key_input"].encode("utf-8")),
                      AES.MODE_CBC,
                      binascii.unhexlify(request.POST["iv_input"].encode("utf-8")))
-    decipheredtext = cipher.decrypt(request.POST["cyphertext_input"].encode("utf-8"))
+    decipheredtext = unpad(cipher.decrypt(binascii.unhexlify(request.POST["ciphertext_input"].encode("utf-8"))),
+                           AES.block_size)
     request.session["iv"] = request.POST["iv_input"]
     request.session["key"] = request.POST["key_input"]
-    request.session["decipheredtext"] = decipheredtext
+    request.session["ciphertext"] = request.POST["ciphertext_input"]
+    request.session["plaintext"] = request.POST["plaintext_input"]
+    request.session["decipheredtext"] = decipheredtext.decode("utf-8")
     request.session.save()
     return redirect("crypto:symmetric")
 

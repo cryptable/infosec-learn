@@ -8,12 +8,12 @@
     <form action="{% url 'crypto:symmetric_encrypt' %}" method="post">
     {% csrf_token %}
     <fieldset>
-        <label for="key_input">Enter 16 bytes key as HEX</label><br>
-        <input type="text" name="key_input" id="key_input" value="{{ iv }}">
-        <label for="iv_input">Enter 16 bytes IV as HEX</label><br>
-        <input type="text" name="iv_input" id="iv_input" value="{{ key }}">
-        <label for="plaintext_input">Enter your plaintext</label><br>
-        <input type="text" name="plaintext_input" id="plaintext_input" value="{{ plaintext }}">
+        <label for="key_input">Enter 16 bytes key as HEX</label>
+        <input type="text" name="key_input" id="key_input" value="{{ key }}"><br>
+        <label for="iv_input">Enter 16 bytes IV as HEX</label>
+        <input type="text" name="iv_input" id="iv_input" value="{{ iv }}"><br>
+        <label for="plaintext_input">Enter your plaintext</label>
+        <input type="text" name="plaintext_input" id="plaintext_input" value="{{ plaintext }}"><br>
     </fieldset>
     <input type="submit" value="Encrypt Plaintext">
     </form>
@@ -23,24 +23,24 @@
         <form action="{% url 'crypto:symmetric_decrypt' %}" method="post">
         {% csrf_token %}
         <fieldset>
-            <label for="key_input">Enter 16 bytes key as HEX</label><br>
-            <input type="text" name="key_input" id="key_input" value="{{ iv }}">
-            <label for="iv_input">Enter 16 bytes IV as HEX</label><br>
-            <input type="text" name="iv_input" id="iv_input" value="{{ key }}">
-            <label for="plaintext_input">Enter number of bytes</label><br>
-            <input type="text" name="cyphertext_input" id="cyphertext_input" value="{{ ciphertext }}">
+            <label for="key_input">Enter 16 bytes key as HEX</label>
+            <input type="text" name="key_input" id="key_input" value="{{ key }}"><br>
+            <label for="iv_input">Enter 16 bytes IV as HEX</label>
+            <input type="text" name="iv_input" id="iv_input" value="{{ iv }}"><br>
+            <label for="ciphertext_input">Enter number of bytes</label>
+            <input type="text" name="ciphertext_input" id="ciphertext_input" value="{{ ciphertext }}"><br>
+            <input type="hidden" name="plaintext_input" id="plaintext_input" value="{{ plaintext }}">
         </fieldset>
         <input type="submit" value="Decrypt Plaintext">
         </form>
         </p>
-        {% if decryptedtext %}
-            <p><strong>{{ decryptedtext }}</strong></p>
+        {% if decipheredtext %}
+            <p><strong>{{ decipheredtext }}</strong></p>
         {% endif %}
         <form action="{% url 'crypto:clear_session' %}" method="post">
         {% csrf_token %}
         <input type="submit" value="Clear Session">
         </form>
     {% endif %}
-
 </body>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Hash Functions</title>
+</head>
+<body>
+    <form action="{% url 'crypto:hash' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <label for="hash_input">Enter Hash Text</label><br>
+        <input type="text" name="hash_input" id="hash_input" value="">
+    </fieldset>
+    <input type="submit" value="Calculate Hash">
+    </form>
+    {% if hash %}<p><strong>{{ hash }}</strong></p>{% endif %}
+</body>
+</html>

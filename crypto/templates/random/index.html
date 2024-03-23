@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Random Functions</title>
+</head>
+<body>
+    <form action="{% url 'crypto:random' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <label for="random_input">Enter number of bytes</label><br>
+        <input type="number" name="random_input" id="random_input" value="32">
+    </fieldset>
+    <input type="submit" value="Generate Random">
+    </form>
+    {% if random %}<p><strong>{{ random }}</strong></p>{% endif %}
+</body>
+</html>
